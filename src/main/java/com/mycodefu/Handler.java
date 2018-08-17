@@ -70,7 +70,10 @@ public class Handler implements RequestHandler<Map<String, Object>, ApiGatewayRe
 		List<Color> colors = Arrays.asList(Color.WHITE, new Color(154, 191, 249), new Color(249, 238, 154), new Color(237, 179, 249));
 
 		Random random = new Random();
-		int numberOfStars = random.nextInt(200) + 300;
+		double factor = ((double)width * (double)height) / 786432d;
+		int bound = (int)(200d * factor);
+		int minimum = (int)(300d * factor);
+		int numberOfStars = random.nextInt(bound) + minimum;
 		for( int starNo = 0; starNo < numberOfStars; starNo++) {
 			int diameter = random.nextInt(5) + 1;
 			int starX = random.nextInt(width - 15);
