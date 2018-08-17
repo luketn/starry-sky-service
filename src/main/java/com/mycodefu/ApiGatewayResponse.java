@@ -5,12 +5,6 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 public class ApiGatewayResponse {
 
 	private final int statusCode;
@@ -47,10 +41,6 @@ public class ApiGatewayResponse {
 	}
 
 	public static class Builder {
-
-		private static final Logger LOG = LogManager.getLogger(ApiGatewayResponse.Builder.class);
-
-		private static final ObjectMapper objectMapper = new ObjectMapper();
 
 		private int statusCode = 200;
 		private Map<String, String> headers = Collections.emptyMap();
@@ -114,13 +104,6 @@ public class ApiGatewayResponse {
 			String body = null;
 			if (rawBody != null) {
 				body = rawBody;
-			} else if (objectBody != null) {
-				try {
-					body = objectMapper.writeValueAsString(objectBody);
-				} catch (JsonProcessingException e) {
-					LOG.error("failed to serialize object", e);
-					throw new RuntimeException(e);
-				}
 			} else if (binaryBody != null) {
 				body = new String(Base64.getEncoder().encode(binaryBody), StandardCharsets.UTF_8);
 			}
