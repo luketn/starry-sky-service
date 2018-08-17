@@ -36,7 +36,7 @@ public class Handler implements RequestHandler<Map<String, Object>, ApiGatewayRe
 			height = DEFAULT_HEIGHT;
 		}
 
-		byte[] response = drawStars(width, height);
+		byte[] response = getStarsPngBytes(width, height);
 
 		return ApiGatewayResponse.builder()
 				.setStatusCode(200)
@@ -45,7 +45,7 @@ public class Handler implements RequestHandler<Map<String, Object>, ApiGatewayRe
 				.build();
 	}
 
-	byte[] drawStars(int width, int height) {
+	byte[] getStarsPngBytes(int width, int height) {
 		try {
 			BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 			Graphics graphics = bufferedImage.getGraphics();
@@ -62,10 +62,7 @@ public class Handler implements RequestHandler<Map<String, Object>, ApiGatewayRe
 
 	void drawStars(Graphics g, int width, int height) {
 		g.setColor(Color.BLACK);
-
 		g.fillRect(0, 0, width, height);
-
-		g.setColor(Color.WHITE);
 
 		List<Color> colors = Arrays.asList(Color.WHITE, new Color(154, 191, 249), new Color(249, 238, 154), new Color(237, 179, 249));
 
@@ -80,7 +77,6 @@ public class Handler implements RequestHandler<Map<String, Object>, ApiGatewayRe
 			int starY = random.nextInt(height - 15);
 
 			g.setColor(colors.get(random.nextInt(4)));
-
 			g.fillOval(starX, starY, diameter, diameter);
 		}
 	}

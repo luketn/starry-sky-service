@@ -8,10 +8,10 @@ public class HandlerTest {
 
     @org.junit.Test
     public void drawStars_bytes() throws IOException {
-        File file = new File("./test2.png");
+        File file = new File("./test.png");
         Handler handler = new Handler();
 
-        byte[] bytes = handler.drawStars(640, 480);
+        byte[] bytes = handler.getStarsPngBytes(640, 480);
         Files.write(file.toPath(), bytes);
     }
 }
