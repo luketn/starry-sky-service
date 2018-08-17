@@ -1,0 +1,22 @@
+# Welcome to Serverless!
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+
+service: aws-java-maven
+
+provider:
+  name: aws
+  runtime: java8
+  profile: personal
+
+package:
+  artifact: target/starry-sky-service-dev.jar
+
+functions:
+  getStarrySky:
+    handler: com.mycodefu.Handler
+    events:
+      - http:
+          path: starry/sky
+          method: get
