@@ -23,7 +23,7 @@ functions:
     handler: com.mycodefu.Handler
     events:
       - http:
-          path: starry/sky
+          path: sky.png
           method: get
 
 custom:
