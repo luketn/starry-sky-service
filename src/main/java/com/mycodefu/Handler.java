@@ -22,9 +22,17 @@ public class Handler implements RequestHandler<Map<String, Object>, ApiGatewayRe
 		Map<String, String> parameters = (Map<String, String>) input.get("queryStringParameters");
 		int width;
 		int height;
-		if (parameters != null && parameters.size() == 2 && parameters.containsKey("width") && parameters.containsKey("height")) {
-			width = Integer.parseInt(parameters.get("width"));
-			height = Integer.parseInt(parameters.get("height"));
+		if (parameters != null) {
+			if (parameters.containsKey("width")) {
+				width = Integer.parseInt(parameters.get("width"));
+			} else {
+				width = DEFAULT_WIDTH;
+			}
+			if (parameters.containsKey("height")) {
+				height = Integer.parseInt(parameters.get("height"));
+			} else {
+				height = DEFAULT_HEIGHT;
+			}
 		} else {
 			width = DEFAULT_WIDTH;
 			height = DEFAULT_HEIGHT;
