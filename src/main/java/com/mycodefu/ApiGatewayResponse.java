@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.Map;
 
 public class ApiGatewayResponse {
-
 	private final int statusCode;
 	private final String body;
 	private final Map<String, String> headers;
@@ -41,11 +40,9 @@ public class ApiGatewayResponse {
 	}
 
 	public static class Builder {
-
 		private int statusCode = 200;
 		private Map<String, String> headers = Collections.emptyMap();
 		private String rawBody;
-		private Object objectBody;
 		private byte[] binaryBody;
 		private boolean base64Encoded;
 
@@ -64,15 +61,6 @@ public class ApiGatewayResponse {
 		 */
 		public Builder setRawBody(String rawBody) {
 			this.rawBody = rawBody;
-			return this;
-		}
-
-		/**
-		 * Builds the {@link ApiGatewayResponse} using the passed object body
-		 * converted to JSON.
-		 */
-		public Builder setObjectBody(Object objectBody) {
-			this.objectBody = objectBody;
 			return this;
 		}
 

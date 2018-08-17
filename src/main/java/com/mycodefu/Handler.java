@@ -1,18 +1,15 @@
 package com.mycodefu;
 
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
+
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
-
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
-
-import javax.imageio.ImageIO;
 
 public class Handler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
