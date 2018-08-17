@@ -18,14 +18,25 @@ import javax.imageio.ImageIO;
 public class Handler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
 	private static final Logger LOG = LogManager.getLogger(Handler.class);
-	public static final int DEFAULT_WIDTH = 640;
-	public static final int DEFAULT_HEIGHT = 480;
+	public static final int DEFAULT_WIDTH = 1024;
+	public static final int DEFAULT_HEIGHT = 768;
 
 	@Override
 	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
 		LOG.info("received: {}", input);
 
-		byte[] response = drawStars();
+		Map<String, String> parameters = (Map<String, String>) input.get("queryStringParameters");
+		int width;
+		int height;
+		if (parameters != null && parameters.size() == 2 && parameters.containsKey("width") && parameters.containsKey("height")) {
+			width = Integer.parseInt(parameters.get("width"));
+			height = Integer.parseInt(parameters.get("height"));
+		} else {
+			width = DEFAULT_WIDTH;
+			height = DEFAULT_HEIGHT;
+		}
+
+		byte[] response = drawStars(width, height);
 
 		return ApiGatewayResponse.builder()
 				.setStatusCode(200)
@@ -34,23 +45,23 @@ public class Handler implements RequestHandler<Map<String, Object>, ApiGatewayRe
 				.build();
 	}
 
-	private byte[] drawStars() {
+	byte[] drawStars(int width, int height) {
 		try {
-			BufferedImage bufferedImage = new BufferedImage(DEFAULT_WIDTH, DEFAULT_HEIGHT, BufferedImage.TYPE_INT_RGB);
-			drawStars(bufferedImage.getGraphics(), DEFAULT_WIDTH, DEFAULT_HEIGHT);
-			ByteArrayOutputStream imageByteArrayOutputStream = new ByteArrayOutputStream();
-			ImageIO.write(bufferedImage, "png", imageByteArrayOutputStream);
-			return imageByteArrayOutputStream.toByteArray();
+			BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+			Graphics graphics = bufferedImage.getGraphics();
+			drawStars(graphics, width, height);
+			ByteArrayOutputStream byteArrayStream = new ByteArrayOutputStream();
+			ImageIO.write(bufferedImage, "png", byteArrayStream);
+			return byteArrayStream.toByteArray();
 		} catch (IOException e) {
+			System.out.println("An error occurred drawing stars: " + e.getMessage());
+			e.printStackTrace();
 			return new byte[] {};
 		}
 	}
 
-	private void drawStars(Graphics g, int defaultWidth, int defaultHeight) {
+	void drawStars(Graphics g, int width, int height) {
 		g.setColor(Color.BLACK);
-
-		int width = defaultWidth;
-		int height = defaultHeight;
 
 		g.fillRect(0, 0, width, height);
 

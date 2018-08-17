@@ -1,0 +1,23 @@
+{
+  "name": "starry-sky-service",
+  "version": "1.0.0",
+  "description": "API Gateway + Lambda based service that generates a starry sky image.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless-apigw-binary": "^0.4.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luketn/starry-sky-service.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luketn/starry-sky-service/issues"
+  },
+  "homepage": "https://github.com/luketn/starry-sky-service#readme"
+}
