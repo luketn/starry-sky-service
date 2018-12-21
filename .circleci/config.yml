@@ -58,7 +58,7 @@ jobs:
           keys:
           - serverless-dependency
 
-      - run: npm install serverless serverless-aws-documentation serverless-domain-manager
+      - run: npm install
 
       - save_cache:
           paths:
