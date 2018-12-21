@@ -31,8 +31,6 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
-      - run: npm --version
-
       - run: mvn package
 
       - persist_to_workspace:
