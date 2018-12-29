@@ -13,7 +13,8 @@ provider:
   memorySize: 3008
 
 plugins:
- - serverless-apigw-binary
+  - serverless-apigw-binary
+  - serverless-domain-manager
 
 package:
   artifact: target/starry-sky-service-dev.jar
@@ -27,6 +28,12 @@ functions:
           method: get
 
 custom:
+  customDomain:
+    domainName: api.mycodefu.com
+    basePath: 'starry'
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+
   apigwBinary:
     types:
       - '*/*'
