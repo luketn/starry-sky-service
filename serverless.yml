@@ -9,7 +9,7 @@ provider:
   name: aws
   region: ap-southeast-2
   runtime: java8
-  profile: personal
+#  profile: personal
   memorySize: 3008
 
 plugins:
