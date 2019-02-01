@@ -25,8 +25,8 @@ public class HandlerTest {
 
         HashMap<String, String> queryStringParameters = new HashMap<>();
 
-        queryStringParameters.put("width", "1024");
-        queryStringParameters.put("height", "768");
+        queryStringParameters.put("width", "1200");
+        queryStringParameters.put("height", "900");
 
         event.put("queryStringParameters", queryStringParameters);
 
@@ -36,8 +36,8 @@ public class HandlerTest {
 
         BufferedImage image = ImageIO.read(file);
 
-        assertEquals(1024, image.getWidth());
-        assertEquals(768, image.getHeight());
+        assertEquals(1200, image.getWidth());
+        assertEquals(900, image.getHeight());
 
         if (getOsName().startsWith("Mac OS")) {
             Desktop.getDesktop().open(file);
