@@ -1,6 +1,8 @@
 # starry-sky-service
 API Gateway + Lambda based service that generates a starry sky image.
 
+[![CircleCI](https://circleci.com/gh/luketn/starry-sky-service.svg?style=svg)](https://circleci.com/gh/luketn/starry-sky-service)
+
 #### Try it out!
 
 Generate a starry sky:
