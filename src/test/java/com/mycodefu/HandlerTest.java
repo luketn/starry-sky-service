@@ -1,6 +1,9 @@
 package com.mycodefu;
 
+import org.junit.Test;
+
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 
 public class HandlerTest {
 
-    @org.junit.Test
+    @Test
     public void drawStars_bytes() throws IOException {
         File file = new File("./test.png");
         Handler handler = new Handler();
@@ -35,5 +38,14 @@ public class HandlerTest {
 
         assertEquals(1024, image.getWidth());
         assertEquals(768, image.getHeight());
+
+        if (getOsName().startsWith("Mac OS")) {
+            Desktop.getDesktop().open(file);
+        }
+    }
+
+    private static String getOsName() {
+        String property = System.getProperty("os.name");
+        return property;
     }
 }

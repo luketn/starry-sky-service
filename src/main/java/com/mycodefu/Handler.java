@@ -13,8 +13,13 @@ import java.util.List;
 
 public class Handler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
-	public static final int DEFAULT_WIDTH = 1024;
-	public static final int DEFAULT_HEIGHT = 768;
+	private static final int DEFAULT_WIDTH = 1024;
+	private static final int DEFAULT_HEIGHT = 768;
+
+	private static final Random random = new Random();
+	private static final List<Color> starColors = Arrays.asList(new Color(154, 191, 249), new Color(249, 238, 154), new Color(237, 179, 249));
+	private static final int BORDER = 15;
+
 
 	@Override
 	public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
@@ -47,7 +52,7 @@ public class Handler implements RequestHandler<Map<String, Object>, ApiGatewayRe
 				.build();
 	}
 
-	byte[] getStarsPngBytes(int width, int height) {
+	private byte[] getStarsPngBytes(int width, int height) {
 		try {
 			BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 			Graphics graphics = bufferedImage.getGraphics();
@@ -62,23 +67,29 @@ public class Handler implements RequestHandler<Map<String, Object>, ApiGatewayRe
 		}
 	}
 
+
+	private static int numberOfStars(double width, double height) {
+		double factor = (width * height) / 786432d;
+		int bound = (int)(200d * factor);
+		int minimum = (int)(300d * factor);
+		return random.nextInt(bound) + minimum;
+	}
+
 	void drawStars(Graphics g, int width, int height) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, width, height);
 
-		List<Color> colors = Arrays.asList(Color.WHITE, new Color(154, 191, 249), new Color(249, 238, 154), new Color(237, 179, 249));
-
-		Random random = new Random();
-		double factor = ((double)width * (double)height) / 786432d;
-		int bound = (int)(200d * factor);
-		int minimum = (int)(300d * factor);
-		int numberOfStars = random.nextInt(bound) + minimum;
+		int numberOfStars = numberOfStars(width, height);
 		for( int starNo = 0; starNo < numberOfStars; starNo++) {
-			int diameter = random.nextInt(5) + 1;
-			int starX = random.nextInt(width - 15);
-			int starY = random.nextInt(height - 15);
+			int diameter = random.nextInt(4) + 1;
+			int starX = random.nextInt(width - BORDER);
+			int starY = random.nextInt(height - BORDER);
 
-			g.setColor(colors.get(random.nextInt(4)));
+			if (starNo % 7 == 0) {
+				g.setColor(starColors.get(random.nextInt(starColors.size())));
+			} else {
+				g.setColor(Color.WHITE);
+			}
 			g.fillOval(starX, starY, diameter, diameter);
 		}
 	}
